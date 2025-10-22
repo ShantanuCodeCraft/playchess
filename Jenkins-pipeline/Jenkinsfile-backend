@@ -1,6 +1,11 @@
 pipeline{
     agent any
 
+    tools {
+        nodejs "node.js-25"
+        sonarQubeScanner "SonarScanner"
+    }
+
     environment {
         SONARQUBE_ENV = "sonarqube-scanner"
         APP_NAME = "chess-backend"
