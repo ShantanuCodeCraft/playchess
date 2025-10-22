@@ -1,0 +1,13 @@
+pipeline{
+    agent any
+
+    stages{
+        stage("cleaning workspace"){
+            steps{
+                cleanws()
+            }
+        }
+
+        
+    }
+}
