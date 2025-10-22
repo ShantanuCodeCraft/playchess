@@ -3,7 +3,6 @@ pipeline{
 
     tools {
         nodejs "node.js-25"
-        sonarQubeScanner "SonarScanner"
     }
 
     environment {
@@ -26,10 +25,13 @@ pipeline{
         }
 
         stage("Sonarqube Analysis"){
+            environment {
+                SONAR_HOME= tool "SonarScanner"
+            }
             steps{
                 dir('Application-code/backend'){
                     withSonarQubeEnv(env.SONARQUBE_ENV) {
-                        sh """sonar-scanner \
+                        sh """${SONAR_HOME}/bin/sonar-scanner \
                             -Dsonar.projectKey=${APP_NAME}\
                             -Dsonar.projectName='${APP_NAME}' 
                         """
