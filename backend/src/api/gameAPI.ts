@@ -1,5 +1,6 @@
 import express from "express";
-import { prisma } from "../prisma/index.js";
+import { prisma } from "../prisma.js";
+
 
 const gameapi = express.Router();
 

@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { SECREAT_KEY } from "../userApi.js";
 import User from "../../User.js";
 import { Socket } from "socket.io";
-import { prisma } from "../../prisma/index.js";
+import { prisma } from "../../prisma.js";
 
 
 export interface decodedUser {

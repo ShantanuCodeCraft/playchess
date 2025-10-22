@@ -10,7 +10,7 @@ import {
     OPPONENT_DISCONECT,
     OPPONENT_RECONNECT,
 } from "./messageType.js";
-import { prisma } from "./prisma/index.js";
+import { prisma } from "./prisma.js";
 
 export type move = {
     from: string;
