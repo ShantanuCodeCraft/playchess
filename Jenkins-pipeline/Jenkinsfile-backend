@@ -3,13 +3,12 @@ pipeline{
 
     tools {
         nodejs "node.js-25"
-        docker "docker"
     }
 
     environment {
         SONARQUBE_ENV = "sonarqube-scanner"
         APP_NAME = "chess-backend"
-        DOCKER_REPOSITORY = ""
+        DOCKER_REPOSITORY = "shantanuin"
     }
 
     stages{
@@ -64,7 +63,7 @@ pipeline{
 
         stage("Trivy Image Scan"){
             steps{
-                sh 'trivy image ${DOCKER_REPOSITORY}/${APP_NAME} >  trivyimage.txt'
+                sh "trivy image ${DOCKER_REPOSITORY}/${APP_NAME} >  trivyimage.txt"
             }
         }
     }
