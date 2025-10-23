@@ -64,7 +64,7 @@ pipeline{
 
         stage("Trivy Image Scan"){
             steps{
-                'trivy image ${DOCKER_REPOSITORY}/${APP_NAME} >  trivyimage.txt'
+                sh 'trivy image ${DOCKER_REPOSITORY}/${APP_NAME} >  trivyimage.txt'
             }
         }
     }
