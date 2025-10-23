@@ -45,10 +45,10 @@ pipeline{
             }
         }
 
-        stage("Docker Image Build"){
+        stage("Trivy File Scan"){
             steps{
                 dir('Application-code/backend'){
-                    sh 'docker build . -t ${DOCKER_REPOSITORY}/${APP_NAME}'
+                    sh "trivy fs --scanners misconfig . > trivyfs.txt"
                 }
             }
         }
