@@ -3,6 +3,7 @@ pipeline{
 
     tools {
         nodejs "node.js-25"
+        docker "docker"
     }
 
     environment {
@@ -50,6 +51,20 @@ pipeline{
                 dir('Application-code/backend'){
                     sh "trivy fs --scanners misconfig . > trivyfs.txt"
                 }
+            }
+        }
+
+        stage("Docker Image Build"){
+            steps{
+                dir('Application-code/backend'){
+                    sh "docker build . -t ${DOCKER_REPOSITORY}/${APP_NAME}"
+                }
+            }
+        }
+
+        stage("Trivy Image Scan"){
+            steps{
+                'trivy image ${DOCKER_REPOSITORY}/${APP_NAME} >  trivyimage.txt'
             }
         }
     }
