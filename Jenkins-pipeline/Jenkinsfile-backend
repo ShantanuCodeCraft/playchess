@@ -8,7 +8,7 @@ pipeline{
     environment {
         SONARQUBE_ENV = "sonarqube-scanner"
         APP_NAME = "chess-backend"
-        DOCKER_REPOSITORY = "shantanuin"
+        DOCKER_USER = "shantanuin"
     }
 
     stages{
@@ -56,14 +56,23 @@ pipeline{
         stage("Docker Image Build"){
             steps{
                 dir('Application-code/backend'){
-                    sh "docker build . -t ${DOCKER_REPOSITORY}/${APP_NAME}"
+                    sh "docker build . -t ${DOCKER_USER}/${APP_NAME}"
                 }
             }
         }
 
         stage("Trivy Image Scan"){
             steps{
-                sh "trivy image ${DOCKER_REPOSITORY}/${APP_NAME} >  trivyimage.txt"
+                sh "trivy image ${DOCKER_USER}/${APP_NAME} >  trivyimage.txt"
+            }
+        }
+
+        stage("Docker Image Push"){
+            steps{
+                withCredentials([string(credentialsId:'docker-accesstoken', variable:'DOCKER-ACCESTOK')]){
+                    sh "echo ${DOCKER-ACCESTOK} | docker login -u ${DOCKER_USER} --password-stdin"
+                    sh "docker push ${DOCKER_USER}/${APP_NAME}"
+                }
             }
         }
     }
