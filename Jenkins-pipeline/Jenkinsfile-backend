@@ -69,8 +69,8 @@ pipeline{
 
         stage("Docker Image Push"){
             steps{
-                withCredentials([string(credentialsId:'docker-accesstoken', variable:'DOCKER-ACCESTOK')]){
-                    sh "echo ${DOCKER-ACCESTOK} | docker login -u ${DOCKER_USER} --password-stdin"
+                withCredentials([string(credentialsId:'docker-accesstoken', variable:'DOCKER_ACCESTOK')]){
+                    sh "echo ${DOCKER_ACCESTOK} | docker login -u ${DOCKER_USER} --password-stdin"
                     sh "docker push ${DOCKER_USER}/${APP_NAME}"
                 }
             }
